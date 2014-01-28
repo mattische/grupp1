@@ -4,7 +4,7 @@ class DB
 	private $pdo;
 
 	function __construct() {
-		$this->pdo = new PDO('mysql:host=localhost;dbname=blog_group1', 'root', '');
+		$this->pdo = new PDO('mysql:host=localhost;dbname=blog_group1', '', '');
 	}
 
 	

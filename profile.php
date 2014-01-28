@@ -13,7 +13,8 @@ $title = $usr."'s homepage";
 
 include_once("template/header.php");
 include_once("classes/db.php");
-$db = new DB();
+include_once("classes/PostHandler.php");
+$ph = new PostHandler();
 
 if(isset($_SESSION['usr']) && ($_SESSION['usr'] == $_GET['username'])) {
 	echo "<form method='post' action='profile.php?username=".$_SESSION['usr']."'>
@@ -26,23 +27,22 @@ if(isset($_SESSION['usr']) && ($_SESSION['usr'] == $_GET['username'])) {
 	if(isset($_POST['msg']) && !empty($_POST['msg'])) {
 		$sql = "";
 		if(empty($_POST['title']))
-			$sql = "INSERT INTO posts (username, message) VALUES('".$_SESSION['usr']."', '".$_POST['msg']."')";
+			$ph->createPost($_SESSION['usr'], $_POST['msg']);
 		else
-			$sql = "INSERT INTO posts (username, title, message) VALUES('".$_SESSION['usr']."', '".$_POST['title']."','".$_POST['msg']."')";
-
-		$db->query($sql); 
+			$ph->createPost($_SESSION['usr'], $_POST['msg'], $_POST['title']);
+			 
 	}
 	else
 		echo "You must at least enter message body.";
 
 	if(isset($_GET['pid']))
-		$db->query("DELETE FROM posts WHERE id=" . $_GET['pid'] . " AND username='".$_SESSION['usr']."'");
+		$ph->deletePost($_SESSION['usr'], $_GET['pid']);
 }
 
 
 
 
-$result = $db->query("SELECT * FROM posts WHERE username='".$usr."' ORDER BY posted DESC");
+$result = $ph->showUsersPosts($_GET['username']);
 
 foreach ($result as $key) {
 	echo "<p>";

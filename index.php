@@ -15,10 +15,10 @@ else {
 	echo " <a href=logout.php>logout</a>";
 }
 include_once("classes/db.php");
+include_once("classes/PostHandler.php");
 
-$db = new DB();
-$result = $db->query("SELECT * FROM posts ORDER BY posted DESC");
-
+$ph = new PostHandler();
+$result = $ph->showPosts();
 
 foreach ($result as $key) {
 	echo "<p>";
@@ -28,7 +28,6 @@ foreach ($result as $key) {
 }
 
 
-unset($db);
 
 include_once("template/footer.php");
 ?>
