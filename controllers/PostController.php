@@ -23,7 +23,9 @@ class PostController
 	}
 
 	function showPost($postId) {
-		//show one post with postId
+		$row = $this->pm->getPost($postId);
+		$row = $row[0];
+		include_once("views/showPost.php");
 	}
 
 	function deletePost($postId) {
