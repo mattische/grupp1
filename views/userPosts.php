@@ -1,5 +1,4 @@
 <?php
-
 foreach ($result as $row) {
 	echo "<p><a href='index.php?c=posts&action=showPost&args[]=" .$row['id']. "'>";
 	echo $row['title'] . "</a> " . $row['posted'] . "<br />by: " . $row['username'];
@@ -11,9 +10,8 @@ foreach ($result as $row) {
 			echo $tags[$row['id']][$i];
 		}
 	}
-
+	if($loggedIn)
+		echo "DELETE EDIT";
 	echo "</p>";
 }
-
-
 ?>

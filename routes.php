@@ -1,5 +1,5 @@
 <?php
 
-$routes = array("posts" => "PostController", "comments" => "CommentsController");
+$routes = array("posts" => "Post", "comments" => "Comments", "login" => "Login");
 
 ?>

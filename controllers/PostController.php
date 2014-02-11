@@ -1,10 +1,14 @@
 <?php
-class PostController
+class PostController implements IController
 {
 	private $pm;
 
 	function __construct() {
 		$this->pm = new PostModel();
+	}
+
+	function index() {
+		$this->showAll();
 	}
 
 	function showAll() {
@@ -19,7 +23,16 @@ class PostController
 	}
 
 	function showUserPosts($username) {
-		//get all posts from user (parameter) ordered by date desc
+		$result = $this->pm->getUserPosts($username);
+		$tags = array();
+		foreach ($result as $row) {
+			$tags[$row['id']] = explode(",", $row['tag']);
+		}
+		$sess = new SessionHandlerz();
+		$loggedIn = $sess->checkSession();
+
+		include_once("views/userPosts.php");
+		
 	}
 
 	function showPost($postId) {

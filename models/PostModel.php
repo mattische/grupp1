@@ -14,5 +14,10 @@ class PostModel
 	function getPost($pid) {
 		return $this->db->query("SELECT id, username, posted, title, message, tag FROM posts WHERE id=".$pid);
 	}
+
+	function getUserPosts($username)
+	{
+		return $this->db->query("SELECT id, username, posted, title, message, tag FROM posts WHERE username='".$username."'");
+	}
 }
 ?>
